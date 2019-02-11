@@ -52,6 +52,7 @@ jobs:
   steps:
   - task: PythonScript@0
     displayName: 'Analyze dependencies'
+    enabled: false
     inputs:
       scriptPath: 'scripts/analyze_deps.py'
       arguments: '--verbose --out "$(Build.ArtifactStagingDirectory)/dependencies.html"'
