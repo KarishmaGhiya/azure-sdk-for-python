@@ -49,7 +49,11 @@ jobs:
   dependsOn:
     - 'Build_Target_Packages'
   
+  pool:
+    vmImage: 'ubuntu-16.04' 
+    
   steps:
+  
   - task: UsePythonVersion@0
     displayName: 'Use Python 3.6'
     inputs:
