@@ -45,7 +45,7 @@ jobs:
     displayName: 'Publish Artifacts'
     condition: succeededOrFailed()
 
-- job: 'Audit'
+- job: 'Analyze'
   dependsOn:
     - 'Build_Target_Packages'
   
