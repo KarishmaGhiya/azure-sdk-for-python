@@ -28,7 +28,7 @@ jobs:
     enabled: true
     inputs:
       scriptPath: 'scripts/analyze_deps.py'
-      arguments: '--verbose --out "$(Build.ArtifactStagingDirectory)/dependencies.html"'
+      arguments: '--verbose --out "$(Build.SourcesDirectory)/dependencies.html"'
 
   - task: PythonScript@0
     displayName: 'Generate Packages'
