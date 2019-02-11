@@ -20,7 +20,7 @@ jobs:
       versionSpec: 3.6
 
   - script: |
-     pip install wheel setuptools pathlib Jinja2 twine readme-renderer[md]
+     pip install wheel setuptools pathlib twine readme-renderer[md]
     displayName: 'Prep Environment' 
  
   - task: PythonScript@0
@@ -50,7 +50,15 @@ jobs:
     - 'Build_Target_Packages'
   
   steps:
+  - task: UsePythonVersion@0
+    displayName: 'Use Python 3.6'
+    inputs:
+      versionSpec: 3.6
 
+  - script: |
+     pip install wheel Jinja2
+    displayName: 'Prep Environment'
+    
   - task: PythonScript@0
     displayName: 'Analyze dependencies'
     enabled: true
