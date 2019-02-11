@@ -21,15 +21,8 @@ jobs:
 
   - script: |
      pip install wheel setuptools pathlib Jinja2 twine readme-renderer[md]
-    displayName: 'Prep Environment'
+    displayName: 'Prep Environment' 
  
-  - task: PythonScript@0
-    displayName: 'Analyze dependencies'
-    enabled: true
-    inputs:
-      scriptPath: 'scripts/analyze_deps.py'
-      arguments: '--verbose --out "$(Build.SourcesDirectory)/dependencies.html"'
-
   - task: PythonScript@0
     displayName: 'Generate Packages'
     inputs:
@@ -57,6 +50,14 @@ jobs:
     - 'Build_Target_Packages'
   
   steps:
+
+  - task: PythonScript@0
+    displayName: 'Analyze dependencies'
+    enabled: true
+    inputs:
+      scriptPath: 'scripts/analyze_deps.py'
+      arguments: '--verbose --out "$(Build.SourcesDirectory)/dependencies.html"'
+
   - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
     condition: and(always(), ne(variables['System.TeamProject'], 'public'))
     displayName: 'Component Detection'
