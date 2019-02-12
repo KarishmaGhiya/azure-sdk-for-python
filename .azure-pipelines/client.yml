@@ -57,21 +57,17 @@ jobs:
     enabled: true
     inputs:
       scriptPath: 'scripts/analyze_deps.py'
-      arguments: '--verbose --out "$(Build.SourcesDirectory)/dependencies.html"'
-
-  - task: CopyFiles@2
-    displayName: 'Move Dependencies Report to Build Artifacts'
-    inputs:
-      SourceFolder: '$(Build.SourcesDirectory)'
-      Contents: dependencies.html
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    condition: always()
+      arguments: '--verbose --out "$(Build.ArtifactStagingDirectory)/dependencies.html"'
 
   - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
     # ComponentGovernance is currently unable to run on pull requests of public projects. Running on non-PR
     # builds should be sufficient.
     condition: and(always(), ne(variables['System.TeamProject'], 'public'))
     displayName: 'Component Detection'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifacts'
+    condition: succeededOrFailed()
 
 - job: 'Generic_Tests'
   dependsOn:
